@@ -26,13 +26,19 @@ export default async function TopicsList() {
       {topics.map((t) => (
         <div
           key={t._id}
-          className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
+          className={`p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start ${t.status === 'complete' ? 'bg-gray-200' : ''}`}
         >
           <div>
-            <h2 className="font-bold text-2xl">{t.title}</h2>
+            <h2 className={`font-bold text-2xl ${t.status === 'complete' ? 'line-through' : ''}`}>
+              {t.title}
+            </h2>
             <div>{t.description}</div>
-            <div>Status: {t.status}</div> {/* Show status */}
-            <div>Due Date: {new Date(t.dueDate).toLocaleDateString()}</div> {/* Show due date */}
+            <div>Due: {new Date(t.dueDate).toLocaleDateString()}</div>
+
+            {/* เพิ่มการแสดงสถานะงาน */}
+            <div className={`font-semibold mt-2 ${t.status === 'complete' ? 'text-green-600' : 'text-red-600'}`}>
+              Status: {t.status === 'complete' ? 'Complete' : 'Incomplete'}
+            </div>
           </div>
 
           <div className="flex gap-2">
