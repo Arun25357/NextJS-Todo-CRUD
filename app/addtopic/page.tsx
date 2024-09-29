@@ -6,14 +6,16 @@ import { useRouter } from "next/navigation";
 export default function AddTopic() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("incomplete"); // New state for status
+  const [dueDate, setDueDate] = useState(""); // New state for due date
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description) {
-      alert("Title and description are required.");
+    if (!title || !description || !dueDate) {
+      alert("Title, description, and due date are required.");
       return;
     }
 
@@ -23,7 +25,7 @@ export default function AddTopic() {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, status, dueDate }),
       });
 
       if (res.ok) {
@@ -52,6 +54,23 @@ export default function AddTopic() {
         className="border border-slate-500 px-8 py-2"
         type="text"
         placeholder="Topic Description"
+      />
+
+      <select
+        onChange={(e) => setStatus(e.target.value)}
+        value={status}
+        className="border border-slate-500 px-8 py-2"
+      >
+        <option value="incomplete">Incomplete</option>
+        <option value="complete">Complete</option>
+      </select>
+
+      <input
+        onChange={(e) => setDueDate(e.target.value)}
+        value={dueDate}
+        className="border border-slate-500 px-8 py-2"
+        type="date"
+        placeholder="Due Date"
       />
 
       <button

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import RemoveBtn from "./RemoveBtn";
+import RemoveBtn from "./removebtn";
 import { HiPencilAlt } from "react-icons/hi";
 
 const getTopics = async () => {
@@ -31,6 +31,8 @@ export default async function TopicsList() {
           <div>
             <h2 className="font-bold text-2xl">{t.title}</h2>
             <div>{t.description}</div>
+            <div>Status: {t.status}</div> {/* Show status */}
+            <div>Due Date: {new Date(t.dueDate).toLocaleDateString()}</div> {/* Show due date */}
           </div>
 
           <div className="flex gap-2">
